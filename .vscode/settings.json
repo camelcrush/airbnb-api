@@ -1,0 +1,5 @@
+{
+    "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+    "python.pythonPath": "/Users/js/.local/share/virtualenvs/airbnb-api-69U_9gv3/bin/python",
+}
