@@ -75,11 +75,13 @@ class RoomView(APIView):
 
 @api_view(["GET"])
 def roomSearch(request):
-    max_price = request.GET.get("max_price")
-    min_price = request.GET.get("min_price")
-    beds = request.GET.get("beds")
-    bedrooms = request.GET.get("bedrooms")
-    bathrooms = request.GET.get("bathrooms")
+    max_price = request.GET.get("max_price", None)
+    min_price = request.GET.get("min_price", None)
+    beds = request.GET.get("beds", None)
+    bedrooms = request.GET.get("bedrooms", None)
+    bathrooms = request.GET.get("bathrooms", None)
+    lat = request.GET.get("lat", None)
+    lng = request.GET.get("lng", None)
     filter_args = {}
     if max_price is not None:
         filter_args["price__lte"] = max_price
@@ -91,6 +93,11 @@ def roomSearch(request):
         filter_args["bedrooms__gte"] = bedrooms
     if bathrooms is not None:
         filter_args["bathrooms__gte"] = bathrooms
+    if lat is not None and lng is not None:
+        filter_args["lat__gte"] = float(lat) - 0.005
+        filter_args["lat__lte"] = float(lat) + 0.005
+        filter_args["lng__gte"] = float(lng) - 0.005
+        filter_args["lng__lte"] = float(lng) + 0.005
     try:
         rooms = Room.objects.filter(**filter_args)
     except ValueError:
