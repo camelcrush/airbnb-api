@@ -5,7 +5,7 @@ from users.serializers import UserSerializer
 
 class RoomSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
     is_favs = serializers.SerializerMethodField()
 
     class Meta:
@@ -30,3 +30,8 @@ class RoomSerializer(serializers.ModelSerializer):
             user = request.user
             return obj in user.favs.all()
         return False
+
+    def create(self, validated_data):
+        request = self.context.get("request")
+        room = Room.objects.create(**validated_data, user=request.user)
+        return room
