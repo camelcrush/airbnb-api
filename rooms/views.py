@@ -74,7 +74,7 @@ class RoomView(APIView):
 
 
 @api_view(["GET"])
-def roomSearch(request):
+def room_search(request):
     max_price = request.GET.get("max_price", None)
     min_price = request.GET.get("min_price", None)
     beds = request.GET.get("beds", None)
