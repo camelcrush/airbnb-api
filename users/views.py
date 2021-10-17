@@ -42,7 +42,7 @@ class UsersViewSet(ModelViewSet):
             encoded_jwt = jwt.encode(
                 {"pk": user.pk}, settings.SECRET_KEY, algorithm="HS256"
             )
-            return Response(data={"tokken": encoded_jwt, "id": user.pk})
+            return Response(data={"token": encoded_jwt, "id": user.pk})
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
