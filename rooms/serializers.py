@@ -35,7 +35,8 @@ class RoomSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         if request:
             user = request.user
-            return obj in user.favs.all()
+            if user.is_authenticated:
+                return obj in user.favs.all()
         return False
 
     def create(self, validated_data):
