@@ -55,7 +55,7 @@ class UsersViewSet(ModelViewSet):
         return Response(serializer)
 
     @favs.mapping.put
-    def toggle_favs(self, request, pk):
+    def toggle_fav(self, request, pk):
         pk = request.data.get("pk", None)
         user = self.get_object()
         if pk is not None:
